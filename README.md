@@ -4,9 +4,9 @@ A Next.js application that generates random names in the "adjective-noun" format
 
 ## Features
 
-- 🎲 Simple frontend with name generation and copy functionality
+- 🎲 Simple frontend with client-side name generation and copy functionality
 - 🔌 RESTful API routes:
-  - `GET /api/name` - Returns a generated name
+  - `GET /api/name` - Returns a generated name (available as standalone API endpoint)
   - `POST /api/log` - Client-side logging endpoint
 - ♿ Full accessibility support (ARIA labels, keyboard navigation, screen reader support)
 - 🛡️ Security headers configured (CSP, HSTS, X-Frame-Options, etc.)
@@ -58,6 +58,7 @@ pnpm dev
 - `pnpm format` - Format code with Prettier
 - `pnpm format:check` - Check code formatting
 - `pnpm test` - Run tests
+- `pnpm test:watch` - Run tests in watch mode
 - `pnpm test:ui` - Run tests with UI
 - `pnpm test:coverage` - Run tests with coverage
 - `pnpm type-check` - Type check without emitting files
@@ -69,6 +70,8 @@ pnpm dev
 #### GET /api/name
 
 Generates a random name in adjective-noun format.
+
+**Note:** The frontend generates names client-side and does not use this API endpoint. This endpoint is available for external API consumers.
 
 **Response:**
 
