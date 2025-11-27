@@ -133,20 +133,22 @@ describe('Home Page', () => {
     });
   });
 
-  it('should show loading state during generation', async () => {
+  it('should generate name instantly when button is clicked', async () => {
     const user = userEvent.setup();
     render(<Home />);
+
+    // Wait for initial name to be generated
+    await waitFor(() => {
+      expect(screen.getByText('test-name')).toBeInTheDocument();
+    });
 
     const generateButton = screen.getByLabelText(/generate/i);
     await user.click(generateButton);
 
-    // Should show loading state briefly (check for visible text, not sr-only)
-    const loadingElements = screen.getAllByText(/Generating/i);
-    expect(loadingElements.length).toBeGreaterThan(0);
-    // Check that at least one is visible (not sr-only)
-    const visibleLoading = loadingElements.find(
-      (el) => !el.classList.contains('sr-only')
-    );
-    expect(visibleLoading).toBeTruthy();
+    // Name should be generated instantly without visible loading delay
+    await waitFor(() => {
+      expect(vi.mocked(nameGenerator.generateName)).toHaveBeenCalledTimes(2);
+      expect(screen.getByText('test-name')).toBeInTheDocument();
+    });
   });
 });
