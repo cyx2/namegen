@@ -60,25 +60,16 @@ export default function Home() {
     setCopied(false);
 
     try {
-      // Small delay for better UX feedback
-      setTimeout(() => {
-        try {
-          const newName = generateName();
-          setName(newName);
-          setIsGenerating(false);
-          clientLogger.info('Name generated', {
-            source: 'ui',
-            event: 'button_click',
-            name: newName,
-          });
-          // Focus on generate button for accessibility
-          generateButtonRef.current?.focus();
-        } catch (err) {
-          clientLogger.error('Failed to generate name', err);
-          setError(ERROR_MESSAGES.GENERATE_FAILED);
-          setIsGenerating(false);
-        }
-      }, 100);
+      const newName = generateName();
+      setName(newName);
+      setIsGenerating(false);
+      clientLogger.info('Name generated', {
+        source: 'ui',
+        event: 'button_click',
+        name: newName,
+      });
+      // Focus on generate button for accessibility
+      generateButtonRef.current?.focus();
     } catch (err) {
       clientLogger.error('Failed to generate name', err);
       setError(ERROR_MESSAGES.GENERATE_FAILED);
@@ -145,16 +136,18 @@ export default function Home() {
               aria-live="polite"
               aria-atomic="true"
             >
-              {isGenerating ? (
+              {isGenerating || (!name && !error) ? (
                 <span className="flex items-center justify-center gap-2">
                   <Loader2
                     className="w-5 h-5 animate-spin"
                     aria-hidden="true"
                   />
-                  <span className="sr-only">Generating name...</span>
+                  <span className="sr-only">
+                    {isGenerating ? 'Generating name...' : 'Loading...'}
+                  </span>
                 </span>
               ) : (
-                name || 'Loading...'
+                name || ''
               )}
             </p>
             <button
