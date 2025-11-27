@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { env } from '@/lib/env';
 import './globals.css';
@@ -43,6 +44,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ErrorBoundary>{children}</ErrorBoundary>
+        <SpeedInsights />
       </body>
     </html>
   );
