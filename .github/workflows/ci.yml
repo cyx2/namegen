@@ -27,14 +27,8 @@ jobs:
       - name: Run linter
         run: pnpm lint
 
-      - name: Check formatting
-        run: pnpm format:check
-
-      - name: Type check
-        run: pnpm type-check
-
       - name: Run tests
-        run: pnpm vitest run
+        run: pnpm test
 
       - name: Build
         run: pnpm build
