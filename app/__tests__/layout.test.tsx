@@ -39,4 +39,3 @@ describe('RootLayout', () => {
     expect(markup).toContain('Test content');
   });
 });
-
